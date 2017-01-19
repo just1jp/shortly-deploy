@@ -68,28 +68,18 @@ module.exports = function(grunt) {
       }
     },
 
-    gitadd: {
-      task: {
-        options: {
-          all: true
-        }
-      }
-    },
-
     shell: {
+      gitAdd: {
+        command: 'git add .'
+      },
       gitCommit: {
         command: 'git commit'
-      }
-    },
-
-    gitpush: {
-      target: {
-        options: {
-          repository: 'https://github.com/just1jp/shortly-deploy',
-          branch: 'master'
-        }
+      },
+      prodServer: {
+        
       }
     }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -127,7 +117,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(n) {
-    grunt.task.run([ 'gitadd', 'shell:gitCommit', 'gitpush' ]);
+    grunt.task.run([ 'shell:gitAdd', 'shell:gitCommit' ]);
 
     if (grunt.option('prod')) {
       grunt.task.run([ 'shell:prodServer' ]);
