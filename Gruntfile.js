@@ -21,6 +21,13 @@ module.exports = function(grunt) {
       }
     },
 
+    open: {
+      dev: {
+        path: 'http://127.0.0.1:4568',
+        app: 'Google Chrome'
+      }
+    },
+
     nodemon: {
       dev: {
         script: 'server.js'
@@ -90,6 +97,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-open');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
