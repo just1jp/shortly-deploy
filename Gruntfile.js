@@ -121,7 +121,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(n) {
-    grunt.task.run([ 'shell:repoPush' ]);
+    grunt.task.run([ 'shell:repoPush', 'gitpush' ]);
 
     // if (grunt.option('prod')) {
     //   grunt.task.run([ 'shell:prodServer' ]);
