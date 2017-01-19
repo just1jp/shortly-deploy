@@ -78,9 +78,6 @@ module.exports = function(grunt) {
 
     gitcommit: {
       target: {
-        options: {
-          repository: 'https://github.com/just1jp/shortly-deploy'
-        }
       }
     },
 
