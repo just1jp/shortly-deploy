@@ -129,9 +129,9 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy', function(n) {
     grunt.task.run([ 'gitadd', 'shell:gitCommit', 'gitpush' ]);
 
-    // if (grunt.option('prod')) {
-    //   grunt.task.run([ 'shell:prodServer' ]);
-    // }
+    if (grunt.option('prod')) {
+      grunt.task.run([ 'shell:prodServer' ]);
+    }
   });
 
 
