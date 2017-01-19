@@ -69,7 +69,17 @@ module.exports = function(grunt) {
     },
 
     shell: {
+      gadd: {
+        command: 'git add .'
+      },
+      gcommit: {
+        command: message => 'git commit -m ' + '"' + message + '"'
+      },
+      gpush: {
+        command: 'git push origin master'
+      },
       prodServer: {
+        command: 'git push live master'
       }
     },
   });
@@ -96,20 +106,24 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-
+    'test', 'eslint'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    'test', 'eslint', 'concat', 'uglify', 'cssmin'
-  ]);
+  grunt.registerTask('deploy', function(n) {
+    grunt.task.run([ 'shell:gadd', 'shell:gcommit', 'shell:gpush' ]);
+
+    if (grunt.option('prod')) {
+      grunt.task.run([ 'shell:prodServer' ]);
+    }
+  });
 
 
 };
