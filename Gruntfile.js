@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         command: 'git commit'
       },
       prodServer: {
-        
+        command: 'git push live master'
       }
     }
 
