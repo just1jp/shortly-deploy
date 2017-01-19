@@ -76,8 +76,9 @@ module.exports = function(grunt) {
       }
     },
 
-    gitcommit: {
-      target: {
+    shell: {
+      gitCommit: {
+        command: 'git commit'
       }
     },
 
@@ -126,7 +127,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(n) {
-    grunt.task.run([ 'shell:repoPush', 'gitpush' ]);
+    grunt.task.run([ 'gitadd', 'shell:gitCommit', 'gitpush' ]);
 
     // if (grunt.option('prod')) {
     //   grunt.task.run([ 'shell:prodServer' ]);
