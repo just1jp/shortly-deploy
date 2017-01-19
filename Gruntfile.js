@@ -68,14 +68,22 @@ module.exports = function(grunt) {
       }
     },
 
-    shell: {
-      repoPush: {
-        command: 'git add . && git commit'
-      },
-      prodServer: {
-        command: 'git push live master'
+    gitadd: {
+      task: {
+        options: {
+          all: true
+        }
       }
     },
+
+    gitcommit: {
+      target: {
+        options: {
+          repository: 'https://github.com/just1jp/shortly-deploy'
+        }
+      }
+    },
+
     gitpush: {
       target: {
         options: {
