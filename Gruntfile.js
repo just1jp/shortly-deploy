@@ -70,21 +70,20 @@ module.exports = function(grunt) {
 
     shell: {
       repoPush: {
-        command: 'git add . && git commit && git push origin master && exit'
-      },
-      gadd: {
-        command: 'git add .'
-      },
-      gcommit: {
-        command: message => 'git commit -m ' + '"' + message + '"'
-      },
-      gpush: {
-        command: 'git push origin master'
+        command: 'git add . && git commit'
       },
       prodServer: {
         command: 'git push live master'
       }
     },
+    gitpush: {
+      target: {
+        options: {
+          repository: 'https://github.com/just1jp/shortly-deploy',
+          branch: 'master'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -95,6 +94,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
@@ -121,8 +121,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(n) {
-    var message = grunt.option('m');
-    // grunt.task.run([ 'shell:gadd', 'shell:gcommit:' + message, 'shell:gpush' ]);
     grunt.task.run([ 'shell:repoPush' ]);
 
     // if (grunt.option('prod')) {
