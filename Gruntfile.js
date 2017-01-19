@@ -118,11 +118,12 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', function(n) {
-    grunt.task.run([ 'shell:gadd', 'shell:gcommit', 'shell:gpush' ]);
+    var message = grunt.option('m');
+    grunt.task.run([ 'shell:gadd', 'shell:gcommit:message', 'shell:gpush' ]);
 
-    if (grunt.option('prod')) {
-      grunt.task.run([ 'shell:prodServer' ]);
-    }
+    // if (grunt.option('prod')) {
+    //   grunt.task.run([ 'shell:prodServer' ]);
+    // }
   });
 
 
