@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 
     shell: {
       repoPush: {
-        command: 'git add . && git commit && git push origin master'
+        command: 'git add . && git commit && git push origin master && exit'
       },
       gadd: {
         command: 'git add .'
