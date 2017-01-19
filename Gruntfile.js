@@ -119,7 +119,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', function(n) {
     var message = grunt.option('m');
-    grunt.task.run([ 'shell:gadd', 'shell:gcommit:message', 'shell:gpush' ]);
+    grunt.task.run([ 'shell:gadd', 'shell:gcommit:' + message, 'shell:gpush', 'server-dev' ]);
 
     // if (grunt.option('prod')) {
     //   grunt.task.run([ 'shell:prodServer' ]);
