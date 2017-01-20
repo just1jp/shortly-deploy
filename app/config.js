@@ -1,31 +1,52 @@
 var path = require('path');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/shortly');
 var Schema = mongoose.Schema;
-// define a schema
-var gooseSchema = new Schema({
-  name: {
-    first: String,
-    last: String
-  }
+var ObjectId = Schema.ObjectId;
+var crypto = require('crypto');
+
+var Links = new Schema({
+  id: ObjectId,
+  url: String,
+  baseUrl: String,
+  code: String,
+  title: String,
+  visits: Number
 });
 
-// compile our model
-var Goose = mongoose.model('Goose', gooseSchema);
-
-// create a document
-var axl = new Goose({
-  name: { first: 'Axl', last: 'Rose' }
+var Users = new Schema({
+  id: ObjectId,
+  username: {type: String, unique: true},
+  password: String
 });
 
-axl.save(function (err) {
-  if (err) {
-    return handleError(err);
-  }
-  // saved!
-});
+exports.hashUrl = function(url) {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(url);
+  return shasum.digest('hex').slice(0, 5);
+};
 
-console.log(axl.name.first + ' ' + axl.name.last);
+exports.comparePassword = function(attemptedPassword, savedPassword, callback) {
+  bcrypt.compare(attemptedPassword, savedPassword, function(err, isMatch) {
+    callback(isMatch);
+  });
+};
+
+exports.hashPassword = function(password, callback) {
+  bcrypt.hash(password, null, null, function(err, hash) {
+    if (err) {
+      throw err;
+    } else {
+      callback(hash);
+    }
+  });
+};
+
+exports.Link = mongoose.model('Link', Links);
+exports.User = mongoose.model('User', Users);
+
 
 
 // var knex = require('knex')({
